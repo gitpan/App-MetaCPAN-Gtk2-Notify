@@ -3,7 +3,7 @@ package App::MetaCPAN::Gtk2::Notify;
 use 5.006;
 use strict;
 use warnings;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use JSON;
 use LWP::UserAgent;
@@ -45,7 +45,11 @@ This starts notifier.
 
 =cut
 
+my %prev_id;
+
 sub run {
+    my ( $class, %params ) = @_;
+    $prev_id{1} = 1 if $params{debug};
     while (1) {
         my @recent = get_recent();
         show_recent( \@recent ) if @recent;
@@ -72,8 +76,6 @@ sub get_recent {
     }
 }
 
-my %prev_id;
-
 =head2 show_recent(\@recent)
 
 Show notifications about recent packages
@@ -83,12 +85,13 @@ Show notifications about recent packages
 sub show_recent {
     my $recent = shift;
 
-    # skip notifying on first run
-    if ( %prev_id ) {
+    # skip notifying on a first run
+    if (%prev_id) {
         for ( reverse @$recent ) {
             next if $prev_id{ $_->{id} };
             my ( $auth_name, $avatar ) = @{ get_author( $_->{author} ) };
-            Gtk2::Notify->new( "$auth_name ($_->{author})", "uploaded $_->{name}", $avatar || () )
+            my $url = "https://metacpan.org/release/$_->{author}/$_->{name}";
+            Gtk2::Notify->new( "$auth_name ($_->{author})", "uploaded <a href='$url'>$_->{name}</a>", $avatar || () )
               ->show;
         }
     }
@@ -114,7 +117,7 @@ sub get_author {
             my $avatar_file = File::Spec->catfile( $tmpdir, "$author.jpg" );
             if ( $avatar->is_success ) {
                 write_file( $avatar_file, $avatar->content );
-                $avatar_file = "file://$avatar_file";
+                $avatar_file = "$avatar_file";
             }
             else {
                 $avatar_file = undef;
