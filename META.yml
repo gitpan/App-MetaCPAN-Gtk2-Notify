@@ -1,32 +1,33 @@
----
-abstract: 'Notify about recent modules uploaded to CPAN'
+--- #YAML:1.0
+name:               App-MetaCPAN-Gtk2-Notify
+version:            0.05
+abstract:           Notify about recent modules uploaded to CPAN
 author:
-  - 'Pavel Shaydo, C<< <zwon at cpan.org> >>'
-  - 'Pavel Shaydo <zwon@cpan.org>'
-build_requires:
-  ExtUtils::MakeMaker: 6.59
-  Test::More: 0
+    - Pavel Shaydo <zwon@cpan.org>
+license:            perl
+distribution_type:  module
 configure_requires:
-  ExtUtils::MakeMaker: 6.59
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
-license: perl
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
-name: App-MetaCPAN-Gtk2-Notify
-no_index:
-  directory:
-    - inc
-    - t
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
 requires:
-  File::Slurp: 0
-  Gtk2::Notify: 0
-  JSON: 0
-  LWP::Protocol::https: 0
-  LWP::UserAgent: 0
-  perl: 5.6.0
+    File::Slurp:          0
+    Gtk2::Notify:         0
+    JSON:                 0
+    LWP::Protocol::https:  0
+    LWP::UserAgent:       0
+    Test::More:           0.94
 resources:
-  license: http://dev.perl.org/licenses/
-version: 0.04
+    bugtracker:  https://github.com/trinitum/perl-App-MetaCPAN-Gtk2-Notify/issues
+    homepage:    https://github.com/trinitum/perl-App-MetaCPAN-Gtk2-Notify
+    license:     http://dev.perl.org/licenses/
+    repository:  git://github.com/trinitum/perl-App-MetaCPAN-Gtk2-Notify
+no_index:
+    directory:
+        - t
+        - inc
+    file:  README.pod
+generated_by:       ExtUtils::MakeMaker version 6.56
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
